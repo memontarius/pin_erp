@@ -1,0 +1,18 @@
+
+.btn-icon-delete:after {
+    display: block;
+    width: 10px;
+    height: 11px;
+    content: "";
+    background-repeat: no-repeat;
+    background-image: url("/public/images/delete.svg");
+}
+
+.btn-icon-edit:after {
+    display: block;
+    width: 10px;
+    height: 11px;
+    content: "";
+    background-repeat: no-repeat;
+    background-image: url("/public/images/edit.svg");
+}
