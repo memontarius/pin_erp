@@ -4,7 +4,11 @@ ifneq ("$(wildcard $(ENV_PATH))","")
 	 include $(ENV_PATH)
 endif
 
+
 DOCKER_FILE=docker-compose.yml
+cnn=$(APP_NAME)_app # Container name
+sn=app #Service name
+c=DatabaseSeeder # Class name
 
 #------ Setup
 prepare-env:
@@ -16,26 +20,29 @@ setup:
 	sudo chown -R $(USER):www-data bootstrap/cache
 	sudo chmod 775 -R storage/
 	sudo chmod 775 -R bootstrap/cache/
-	make c-mig
 
 install:
 	composer install
 	npm i
 	npm run build
 
+
 #------ Helpers
 key:
 	php artisan key:generate
 
+clear:
+	php artisan cache:clear
+	php artisan config:clear
 
-cnn=$(APP_NAME)_app # Container name
-sn=app #Service name
-app_container = $(APP_NAME)_app
+c-clear:
+	docker exec $(cnn) make clear
+
 
 #------ Docker
 up:
 	docker compose up -d
-	docker exec $(app_container) service supervisor start
+	docker exec $(cnn) service supervisor start
 
 dw:
 	docker compose down
@@ -49,7 +56,7 @@ b:
 bs:
 	docker-compose --file $(DOCKER_FILE) build $(sn)
 
-c=DatabaseSeeder
+
 #------ DB
 mig:
 	php artisan migrate
@@ -64,16 +71,13 @@ migrf:
 	php artisan migrate:refresh
 
 c-mig:
-	docker exec $(APP_NAME)_app make mig
+	docker exec $(cnn) make mig
 
 c-migr:
-	docker exec $(APP_NAME)_app make migr
+	docker exec $(cnn) make migr
 
 c-seed:
-	docker exec $(APP_NAME)_app make seed c=$(c)
+	docker exec $(cnn) make seed c=$(c)
 
 c-migrf:
-	docker exec $(APP_NAME)_app make migrf
-
-
-
+	docker exec $(cnn) make migrf

@@ -40,9 +40,7 @@ class NewProduct extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->line('New product was added!')
                     ->line("Article: {$this->product->article}")
-                    ->line("Name: {$this->product->name}")
-                    ->line("11111111111111111111111111111111111111")
-                    ->line('Thank you for using our application!');
+                    ->line("Name: {$this->product->name}");
     }
 
     /**
