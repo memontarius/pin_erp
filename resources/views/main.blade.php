@@ -189,24 +189,27 @@
                 <div class="flex items-center justify-between p-4 pt-6">
                     <div class="title">
                         <h3 class="text-[20px] font-bold text-white">
-                            DFETEDFFSG
                         </h3>
                     </div>
                     <div class="flex items-center">
-                        <button type="button"
-                                class="content-element edit-btn btn-icon-edit mr-1 text-gray-400 bg-gray-800 hover:bg-gray-600 text-sm w-5 h-5 ms-auto inline-flex justify-center items-center ">
-                            <span class="sr-only">Edit</span>
-                        </button>
-
-                        <form class="form-delete h-[22px]" action="{{ route('product.destroy', 0) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button
-                                type="submit"
-                                value="Delete"
-                                class="content-element btn-icon-delete mr-4 text-gray-400 bg-gray-800 hover:bg-gray-600 text-sm w-5 h-5 ms-auto inline-flex justify-center items-center ">
+                        <div>
+                            <button type="button"
+                                    class="content-element edit-btn btn-icon-edit mr-1 text-gray-400 bg-gray-800 hover:bg-gray-600 text-sm w-5 h-5 ms-auto inline-flex justify-center items-center ">
+                                <span class="sr-only">Edit</span>
                             </button>
-                        </form>
+                        </div>
+
+                        <div>
+                            <form class="form-delete h-[20px]" action="{{ route('product.destroy', 0) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button
+                                    type="submit"
+                                    value="Delete"
+                                    class="content-element relative top-[-2px] btn-icon-delete mr-4 text-gray-400 bg-gray-800 hover:bg-gray-600 text-sm w-5 h-5 ms-auto inline-flex justify-center items-center ">
+                                </button>
+                            </form>
+                        </div>
 
                         <button type="button"
                                 data-modal-hide="show-product-modal"
@@ -298,10 +301,11 @@
                             <div class="errors text-red-600 text-sm">
                             </div>
                             <label class="text-[10px]" for="article">Артикул</label>
-                            <input class="block min-w-[75%] h-9 text-dark-gray rounded-md mt-1 focus:ring-ultra-sky-400 disabled:opacity-50"
-                                   name="article" id="article" type="text"
-                                   @cannot('update-product-article')
-                                       disabled
+                            <input
+                                class="block min-w-[75%] h-9 text-dark-gray rounded-md mt-1 focus:ring-ultra-sky-400 disabled:opacity-50"
+                                name="article" id="article" type="text"
+                                @cannot('update-product-article')
+                                    disabled
                                 @endcannot
                             >
                             <label class="text-[10px]" for="name">Название</label>
